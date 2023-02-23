@@ -1,28 +1,23 @@
 package com.example.androidrecipes.compose.heritages
 
-import android.media.Image
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.Divider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import coil.compose.rememberAsyncImagePainter
-import coil.request.ImageRequest
 import com.example.androidrecipes.data.Heritage
 
 val heritages = listOf(
 
-    Heritage(1, "日本銀行本店本館", "辰野金吾の代表作で、現存する明治洋風建築のうち、最も重要なものの一つ。三階建地下一階で、外壁は石積みの内側にレンガを積む。内外ともネオ・バロック様式にルネッサンス的意匠を加味している。関東大震災で被災し、一部改造されているが、外観と一階の大部分および二階の主要部などはよく当初の形態を残している。", "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/A_cat_on_a_motorcycle_in_the_medina_of_Tunis_20171017_131525.jpg/1600px-A_cat_on_a_motorcycle_in_the_medina_of_Tunis_20171017_131525.jpg?20210119123505"),
-//Heritage(1, "日本銀行本店本館", "辰野金吾の代表作で、現存する明治洋風建築のうち、最も重要なものの一つ。三階建地下一階で、外壁は石積みの内側にレンガを積む。内外ともネオ・バロック様式にルネッサンス的意匠を加味している。関東大震災で被災し、一部改造されているが、外観と一階の大部分および二階の主要部などはよく当初の形態を残している。", "https://bunka.nii.ac.jp/heritage/43967/_109430/43967_109430111225041739434_300.jpg"),
+    Heritage(1, "日本銀行本店本館", "辰野金吾の代表作で、現存する明治洋風建築のうち、最も重要なものの一つ。三階建地下一階で、外壁は石積みの内側にレンガを積む。内外ともネオ・バロック様式にルネッサンス的意匠を加味している。関東大震災で被災し、一部改造されているが、外観と一階の大部分および二階の主要部などはよく当初の形態を残している。", "https://bunka.nii.ac.jp/heritage/43967/_109430/43967_109430111225041739434_300.jpg"),
     Heritage(2, "大阪市中央公会堂", "大阪市中央公会堂は，中之島地区の東端部にある。北浜で株式仲買商を営んでいた岩本栄之助の寄付によって，大正７年10月に竣工した。\n" +
             "　設計は，指名設計競技に一等当選した岡田信一郎の設計案をもとに，実施設計は辰野金吾，片岡安が中心となって進めた。\n" +
             "　構造は鉄骨煉瓦造，三階建，地下一階である。一，二階の吹き抜けの大集会室，三階の中集会室，特別室，小集会室などを中心に各室が配されている。\n" +
@@ -53,11 +48,12 @@ fun HeritageListScreen(
     LazyColumn(
         modifier = Modifier
             .fillMaxSize(),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Top,
+        horizontalAlignment = Alignment.Start,
     ) {
         items(heritages) { heritage ->
             HeritageListItem(heritage, navigateToHeritageDetail)
+            Divider(modifier = Modifier.padding(8.dp))
         }
     }
 }
@@ -70,7 +66,7 @@ fun HeritageListItem(heritage: Heritage, navigateToHeritageDetail: (Int) -> Unit
         }
     ) {
         AsyncImage(
-            model = "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/A_cat_on_a_motorcycle_in_the_medina_of_Tunis_20171017_131525.jpg/1600px-A_cat_on_a_motorcycle_in_the_medina_of_Tunis_20171017_131525.jpg?20210119123505",
+            model = heritage.imageUrl,
             contentDescription = null,
             contentScale = ContentScale.FillBounds
         )
